@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -19,10 +20,6 @@ public class VizitkaController {
 
     private final VizitkaRepository repository;
 
-    private final Iterable<Vizitka> seznamVizitek = List.of(
-            new Vizitka(1, "Dita (Přikrylová) Formánková", "Czechitas z. s.", "Václavské náměstí 837/11",
-                    "Praha 1", "11000", "dita@czechitas.cs", "+420 800123456", "www.czechitas.cz")
-    );
 
     @Autowired
     public VizitkaController(VizitkaRepository repository) {
@@ -38,7 +35,7 @@ public class VizitkaController {
     public Object zobrazeniStranky() {
         Iterable<Vizitka> all = repository.findAll();
         return new ModelAndView("seznam")
-            .addObject("vizitky", all);
+                .addObject("vizitky", all);
     }
 
     @GetMapping("/{id:[0-9]+}")
@@ -58,22 +55,15 @@ public class VizitkaController {
 
     }
 
-    //Do controlleru přidej metodu, která bude reagovat na GET požadavky na adrese /nova.
-    // Metoda jen zobrazí šablonu formular.html. Uprav formulář tak, aby odesílal data metodou POST
-    // na adresu /nova. Vyzkoušej v prohlížeči, že funguje odkaz na přidání vizitky na úvodní stránce.
 
     @PostMapping("/nova")
-    public Object pridatVizitku(@ModelAttribute("vizitky") @Valid Vizitka vizitka) {
+    public Object pridatVizitku(@ModelAttribute("vizitka") @Valid Vizitka vizitka, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "formular";
+        }
         repository.save(vizitka);
         return "redirect:/";
     }
-    
-    //Do controlleru přidej POST metodu, která bude reagovat na POST požadavky na adrese /nova.
-    // Jako parametr bude přijímat entitu Vizitka, použijeme ji i pro přenos dat z formuláře.
-    // Použij metodu save() repository pro uložení vizitky.
-    // Po uložení vizitky přesměruj uživatele na úvodní stránku.
-    // Vyzkoušej v prohlížeči, že funguje přidání vizitky.
-
 }
 
 

@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 
 @Entity
 public class Vizitka {
@@ -16,7 +17,7 @@ public class Vizitka {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    public Vizitka(Integer id, @Length(max = 100) @NotBlank String celeJmeno, @Length(max = 100) @NotBlank String firma, @Length(max = 100) @NotBlank String ulice, @Length(max = 100) @NotBlank String obec, @Length(max = 5) @NotBlank String psc, @Length(max = 100) @Email String email, @Length(max = 20) String telefon, @Length(max = 100) String web) {
+    public Vizitka(Integer id, String celeJmeno, String firma, String ulice, String obec, String psc, String email, String telefon, String web) {
         this.id = id;
         this.celeJmeno = celeJmeno;
         this.firma = firma;
@@ -44,7 +45,8 @@ public class Vizitka {
     @NotBlank
     private String obec;
 
-    @Length(max = 5)
+    @Pattern(regexp = "\\d{5}")
+    @Length(min = 5, max = 5)
     @NotBlank
     private String psc;
 
