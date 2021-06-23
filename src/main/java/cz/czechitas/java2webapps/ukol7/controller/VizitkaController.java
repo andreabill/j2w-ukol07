@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
-import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -52,7 +51,6 @@ public class VizitkaController {
     public ModelAndView novaVizitka() {
         return new ModelAndView("formular")
                 .addObject("vizitky", new Vizitka());
-
     }
 
 

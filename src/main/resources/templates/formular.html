@@ -12,7 +12,7 @@
 </head>
 <body>
 <div class="detail">
-    <form th:classappend="${#fields.hasErrors('vizitka.*')} ? 'was-validated'" method="post" class="vizitka">
+    <form th:classappend="${#fields.hasErrors('vizitka.*')} ? 'was-validated'" class="vizitka" th:action="@{/nova}" method="post">
         <div class="row">
             <label for="jmeno">Jméno</label>
             <input type="text" id="jmeno" th:field="${vizitka.celeJmeno}" maxlength="100" required/>
@@ -43,15 +43,15 @@
         </div>
         <div class="row">
             <label for="email">E-mail <small>(volitelný)</small></label>
-            <input type="email" id="email" name="email" maxlength="100"/>
+            <input type="email" id="email" th:field="${vizitka.email}" maxlength="100"/>
         </div>
         <div class="row">
             <label for="telefon">Telefon <small>(volitelný)</small></label>
-            <input type="tel" id="telefon" name="telefon" maxlength="100"/>
+            <input type="tel" id="telefon" th:field="${vizitka.telefon}" maxlength="100"/>
         </div>
         <div class="row">
             <label for="web">Web <small>(volitelný)</small></label>
-            <input type="url" id="web" name="web" maxlength="100"/>
+            <input type="url" id="web" th:field="${vizitka.web}" maxlength="100"/>
         </div>
         <div class="form-controls">
             <button type="submit">Odeslat</button>
