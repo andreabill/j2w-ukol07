@@ -50,7 +50,7 @@ public class VizitkaController {
     @GetMapping("/nova")
     public ModelAndView novaVizitka() {
         return new ModelAndView("formular")
-                .addObject("vizitky", new Vizitka());
+                .addObject("vizitka", new Vizitka());
     }
 
 
